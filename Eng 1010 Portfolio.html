@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SORTIE DEBRIEF // SECTOR: WRITING</title>
+    <style>
+        :root {
+            --bg-color: #0b111e;
+            --panel-bg: #131c2e;
+            --accent-blue: #00e5ff;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --alert-amber: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Tactical Header */
+        header {
+            background-color: var(--panel-bg);
+            border-bottom: 2px solid var(--accent-blue);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .sys-status {
+            color: var(--accent-blue);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .blink {
+            animation: blinker 1.5s linear infinite;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+        }
+
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* Main Grid Workspace */
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 320px;
+            background-color: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .manifest-title {
+            padding: 15px;
+            background-color: #1a253a;
+            font-weight: bold;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--accent-blue);
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 15px;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+            font-family: inherit;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-btn:hover {
+            background-color: #1a253a;
+            color: var(--text-main);
+        }
+
+        .nav-btn.active {
+            background-color: #1e2e4a;
+            color: var(--accent-blue);
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .nav-btn .phase-num {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+        }
+
+        /* Presentation Slide Deck Canvas */
+        .canvas {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: radial-gradient(circle at center, #111a2e 0%, #070b14 100%);
+        }
+
+        .slide {
+            background-color: rgba(19, 28, 46, 0.85);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.05);
+            width: 100%;
+            max-width: 950px;
+            min-height: 550px;
+            padding: 35px;
+            border-radius: 4px;
+            display: none;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide-tag {
+            color: var(--accent-blue);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .slide-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .slide-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .slide-content p {
+            margin-bottom: 15px;
+            text-indent: 20px;
+        }
+
+        .slide-content h3 {
+            color: var(--accent-blue);
+            margin: 20px 0 10px 0;
+            font-size: 1.1rem;
+            border-bottom: 1px dashed #1e293b;
+            padding-bottom: 4px;
+        }
+
+        /* Jet Image Layout Panel */
+        .tactical-display {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: #090f1a;
+            border: 1px solid #1e293b;
+            padding: 10px;
+            border-radius: 4px;
+            justify-content: center;
+        }
+
+        .jet-thumbnail {
+            flex: 1;
+            max-width: 280px;
+            height: 160px;
+            object-fit: cover;
+            border: 1px solid var(--accent-blue);
+            filter: grayscale(30%) brightness(90%);
+        }
+
+        .slide-footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .asset-box {
+            margin-top: 20px;
+            background-color: #111827;
+            border: 1px dashed var(--accent-blue);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .asset-box a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .asset-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Tactical Comms / Audio Dock Footer */
+        footer {
+            background-color: var(--panel-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .comms-panel {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .audio-label {
+            font-size: 0.85rem;
+            color: var(--alert-amber);
+            white-space: nowrap;
+        }
+
+        audio {
+            flex: 1;
+            max-width: 500px;
+            height: 32px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>SORTIE DEBRIEF // SECTOR: WRITING</h1>
+            <div style="font-size: 0.85rem; margin-top: 4px; color: var(--text-muted);">
+                PILOT ID: 2026_STEWART_Z // CLASS: ENG 1010 DE
+            </div>
+        </div>
+        <div class="sys-status">
+            <span class="blink"></span>
+            STATUS: DEPLOYED
+        </div>
+    </header>
+
+    <div class="workspace">
+        
+        <div class="sidebar">
+            <div class="manifest-title">MISSION MANIFEST</div>
+            
+            <button class="nav-btn active" onclick="showSlide('slide-cover')">
+                <span class="phase-num">PHASE 00</span>
+                <span>Portfolio Title & Identity</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-04')">
+                <span class="phase-num">PHASE 04</span>
+                <span>Diagnostic Essay: The Foundation</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-06')">
+                <span class="phase-num">PHASE 06</span>
+                <span>Literary Analysis: "The Last Question"</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-08')">
+                <span class="phase-num">PHASE 08</span>
+                <span>Movie Review: Altered Carbon</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-10')">
+                <span class="phase-num">PHASE 10</span>
+                <span>Final Exam Essay: Control & Identity</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-11-13')">
+                <span class="phase-num">PHASE 11-13</span>
+                <span>Professional Experience Logs 1-3</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-14-17')">
+                <span class="phase-num">PHASE 14-17</span>
+                <span>Common Read & Final Project</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-18-20')">
+                <span class="phase-num">PHASE 18-20</span>
+                <span>My Favorite Story: Memory Market</span>
+            </button>
+        </div>
+
+        <div class="canvas">
+
+            <div id="slide-cover" class="slide active">
+                <div class="slide-tag">TELEMETRY: FLIGHT PATTERN</div>
+                <div class="slide-title">MISSION MANIFEST</div>
+                
+                <div class="tactical-display">
+                    <img class="jet-thumbnail" src="F-22_test_fires_AIM-9X.jpg" alt="USAF F-22 Raptor Tactical Asset">
+                    <img class="jet-thumbnail" src="B-2_Spirit_050404-F-1740G-001.jpg" alt="USAF B-2 Spirit Stealth Bomber Asset">
+                </div>
+
+                <div class="slide-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                    <h2 style="color: var(--accent-blue); font-size: 2.2rem; margin-bottom: 15px;">PORTFOLIO</h2>
+                    <h3 style="color: var(--text-main); font-size: 1.2rem; letter-spacing: 4px; margin-bottom: 20px; border:none; padding:0;">Zyion Stewart / Eng 1010 DE</h3>
+                    <p style="color: var(--text-muted); max-width: 600px; text-indent: 0;">
+                        PILOT ID: 2026_STEWART_Z // STATUS: DEPLOYED // SECTOR: MAIN_DEBRIEF
+                    </p>
+                </div>
+                <div class="slide-footer">
+                    <span>SECTOR: MAIN_DEBRIEF</span>
+                    <span>SLIDE 01 // 08</span>
+                </div>
+            </div>
+
+            <div id="slide-04" class="slide">
+                <div class="slide-tag">CARGO: HISTORICAL DATA</div>
+                <div class="slide-title">DIAGNOSTIC ESSAY: ROOTS OF THE DAYCARE</div>
+                <div class="slide-content">
+                    <p>Throughout majority of my life and the life of my parents and their siblings, my grandparents have had a building on their property in Arkansas. That building was originally a daycare center. My grandmother had run it even prior to any of her children being born, starting the daycare roughly around 1955. She started it to help make money alongside my grandpa who had been a worker laying down railroads at the time. The daycare thrived due to it being in a rural area with a tight-knit community. People often referred others to the daycare since they knew their kids would be well taken care of.</p>
+                    <p>However, not long after my father's birth in 1985, my grandfather had become very close with the dean of the University of Arkansas at Pine Bluff. Due to that friendship and my grandfather's experience with manual labor and farming, he got offered an opportunity to teach at the university. Since my grandfather now had a larger salary, my grandmother felt she no longer needed to run the daycare. This led to some discourse between the older siblings and the younger since my grandmother's older children felt that the younger ones were spoiled since they didn't have to work in a daycare with screaming kids.</p>
+                    <p>The daycare center officially became the designated storage area for any random bits and bobs on the property. As my grandparents got older, my grandfather started to hoard more stuff into the daycare and take less care of the building. The once organized and pristine daycare had now become a building with rotted wood and broken windows. Recently on a trip to Arkansas, we helped with the clearing and demolition of the daycare building. A month after the clearing, my grandmother told us that she had planted an herb garden in the same place. Everybody approved of it; they felt it should be something left on the property to remember the good impact the daycare had on our family.</p>
+                </div>
+                <div class="slide-footer">
+                    <span>MAINTENANCE: FAMILY TRADITION</span>
+                    <span>SLIDE 02 // 08</span>
+                </div>
+            </div>
+
+            <div id="slide-06" class="slide">
+                <div class="slide-tag">INTERCEPT: ENTROPY DETECTED</div>
+                <div class="slide-title">LITERARY ANALYSIS: "THE LAST QUESTION"</div>
+                <div class="slide-content">
+                    <p>In "The Last Question," Isaac Asimov uses repetition, symbolism, and a structure across vast periods of time to show that technological progress cannot remove humanity's instinct to question existence. At the beginning of the story, the question humans first ask the Multivac is, "How can the net amount of entropy of the universe be massively decreased?" (Asimov 181). Although the question seems scientific, it shows how humans can worry about the future even in ordinary moments.</p>
+                    <p>As time passes and humans evolve, the same question continues to appear in different forms. Each time the question is asked, the computer responds with, "THERE IS INSUFFICIENT DATA FOR A MEANINGFUL ANSWER" (Asimov 186). This pattern reinforces the idea that despite progress, certain questions will still always be unanswered. The computer represents humanity's desire for certainty and control over the universe. As humans depend on the computer, it becomes a symbol of hope. At the same time, the computer's failure to answer shows the limits of knowledge. The computer grows more complex, changing from Multivac to Galactic AC and then Cosmic AC.</p>
+                    <p>The structure of "The Last Question" moves across billions of years. Humanity evolves from physical bodies into pure energy, yet human nature remains constant. When humans vanish, Cosmic AC continues the search for answers. After the last stars fade, Cosmic AC discovers the answer to entropy. The machine then states, "LET THERE BE LIGHT" (Asimov 190). This line echoes the Bible, connecting the computer with the power of creation. Instead of ending the universe with silence, the story ends with a new beginning.</p>
+                </div>
+                <div class="slide-footer">
+                    <span>VECTOR: GENESIS PROTOCOL</span>
+                    <span>SLIDE 03 // 08</span>
+                </div>
+            </div>
+
+            <div id="slide-08" class="slide">
+                <div class="slide-tag">TARGET: BAY CITY GRID</div>
+                <div class="slide-title">MOVIE REVIEW: ALTERED CARBON (EXACT SOURCE MANIFEST)</div>
+                
+                <div class="tactical-display">
+                    <img class="jet-thumbnail" src="AC-130_Training.jpg" alt="USAF AC-130 Gunship Tactical Field Support Asset">
+                    <img class="jet-thumbnail" src="F-35_Heritage_Flight_Team_performs_in_Bell_Fort_Worth_Alliance_AirShow.jpg" alt="USAF F-35 Heritage Strike Fighter Asset">
+                </div>
+
+                <div class="slide-content">
+                    <p>What happens when a writer creates a show that relates to real-world problems but uses a futuristic setting? How do audiences react? This was the thought process of Laeta Kalogridis, the writer of Netflix’s Altered Carbon. Altered Carbon is a science fiction show unlike any other, following the life of Takeshi Kovacs after being “re-sleeved” and employed by a “meth” to investigate his death. Takeshi lives in Bay City, a futuristic city fueled by inequality, wealth disparities, and corruption. Laeta and other crew members of Altered Carbon use Bay City along with a dark visual style and the growth of Takeshi to explore identity while also addressing real world issues. Through its atmosphere, narrative, and character development, Altered Carbon shows that identity becomes unstable when it is shaped and controlled by outside forces, ultimately reflecting real-world concerns about power and technology.</p>
+                    <p>The atmosphere of Altered Carbon is meant to feel dark and controlled. Directors and production designers made deliberate choices to shape the environment. In an interview, Carey Meyer states, “You’re inside. You’re completely controlling the weather. You’re completely controlling the night and day issues” (Kiril). The control reflects the artificial world of the series. The show often takes place at night, which reinforces its tone. To emphasize this tone and its futuristic setting, Altered Carbon uses neon lights. Neon lights have been used in cyberpunk settings since Blade Runner. This visual reference connects Altered Carbon to earlier science fiction works, showing how the show builds on established ideas. The combination of darkness and neon lights creates a contrast that highlights the division in Bay City. The bright lights draw attention away from the decay underneath, similar to how the technology masks the corruption in society. The visual layout creates a feeling of restriction. The high-angle shots make the characters look small, which reinforces the theme of a powerful system controlling individuals.</p>
+                    <p>The narrative of Altered Carbon focuses on how technology changes human identity, especially through the introduction of stacks and sleeves. Stacks are devices that hold human consciousness, while sleeves are the physical bodies. This division alters the way people view life and death, turning the body into an object. One of the first lines we hear in the series is, “Your body is not who you are. You shed it like a snake sheds its skin” (Kalogridis). This idea forces the audience to question what makes someone human. When memory can be transferred, the stability of individual identity is threatened. The narrative follows Takeshi as he faces problems moving between sleeves while trying to hold onto his identity. This conflict shows how identity can become unstable in a world built on control and technology. When identity can be controlled, it becomes a commodity. This change shows the danger of a society where even consciousness can be bought and sold. The rich, known as "meths," can live forever by changing sleeves, while the poor are stuck in old or damaged bodies. The narrative shows that technology does not solve inequality but makes it worse by creating a deeper division between social classes.</p>
+                    <p>Character development also plays an important role in exploring identity. Takeshi’s growth throughout the series shows how outside forces can shape a person. At the beginning of the show, Takeshi is depicted as an elite soldier who has lost his purpose. His identity has been broken by years of warfare and imprisonment. As he investigates the death of Laurens Bancroft, he is forced to confront his past and the choices that shaped him. This internal conflict is shown through his interactions with other characters. His relationship with Kristin Ortega helps him reconnect with his humanity. Ortega reminds him of the value of real connections in a world where everything can be replaced. This connection causes Takeshi to question the system he is working for, leading him to reclaim his identity. His growth shows that while identity can be destabilized by external control, it can also be reclaimed through personal choice and connection. The development of Takeshi highlights the resilience of human nature against technological control.</p>
+                    <p>Critics have evaluated Altered Carbon’s approach to identity and its futuristic setting. While some praise its visuals, others find its narrative complicated. A review from Escape Velocity notes that while the visuals are strong, “The plot is perhaps a bit too complex for the show to fully capture” (Collection). However, the complexity of the plot reflects the unstable world it portrays, where identity is constantly shifting and controlled by external forces. The acting also strengthens the show, as characters must portray consistent identities across different bodies. This adds another layer to the theme of instability, showing that identity is more than just physical appearance.</p>
+                    <p>Altered Carbon presents a future where control extends beyond governments or systems and reaches into the most personal aspect of human existence: identity itself. The series does not just imagine advanced technology; it examines the consequences of that technology when placed in a society already shaped by inequality. The visual design, character struggles, and narrative structure all point to the same idea—when identity can be controlled, it becomes unstable. The world of Bay City may be fictional, but the concerns it raises about power, technology, and what it means to be human feel immediate and real.</p>
+                    
+                    <div class="asset-box">
+                        <strong>DYNAMIC INTERACTIVE MISSION ASSETS:</strong><br>
+                        Secure External Interface Link: <a href="https://canva.link/hjaql4ll4ua57zo" target="_blank">Access Altered Carbon Layout</a><br>
+                        <span style="font-size:0.8rem; color:var(--alert-amber);">KEYWORD CONFIG: CYBERPUNK_MISSION_ASSETS</span>
+                    </div>
+                </div>
+                <div class="slide-footer">
+                    <span>PHASE: 08</span>
+                    <span>SLIDE 04 // 08</span>
+                </div>
+            </div>
+
+            <div id="slide-10" class="slide">
+                <div class="slide-tag">TACTICAL EVALUATION // MATRIX</div>
+                <div class="slide-title">FINAL EXAM ESSAY: CONTROL & IDENTITY</div>
+                <div class="slide-content">
+                    <p>In both "En plein air" and "The Unicorn in Captivity", identity is shaped and limited by outside factors, even when you appear free on the surface. While "En plein air" focuses on artistic perception and the pressure to perform, "The Unicorn in Captivity" presents a literal version of confinement. Together, these texts show how identity can be shaped by both subtle and obvious outside factors.</p>
+                    <p>In "The Unicorn in Captivity," control is physical and obvious. The unicorn, a symbol of purity and freedom is restrained, "Sure there's an arrow; sure there's a chain around its neck and a paltry fence. But it lives." This description shows even though the unicorn lives, it isn't truly free. This contradicts the identity of the unicorn as a mythological creature that is free and powerful, it's instead something that is subdued and trapped by its chains. A child questions this control, "Why doesn't the unicorn just break free?" The question suggests that escape should be possible, yet it doesn't happen, reflecting how control can be seen as permanent.</p>
+                </div>
+                <div class="slide-footer">
+                    <span>PHASE: 10</span>
+                    <span>SLIDE 05 // 08</span>
+                </div>
+            </div>
+
+            <div id="slide-11-13" class="slide">
+                <div class="slide-tag">UAV SURVEILLANCE: ART SECTOR</div>
+                <div class="slide-title">PROFESSIONAL EXPERIENCE LOGS 1, 2 & 3 (UNABRIDGED OPERATIONAL RECOVERY)</div>
+                
+                <div class="tactical-display">
+                    <img class="jet-thumbnail" src="A-10_Warthog_nose_maintenance.jpg" alt="USAF A-10 Warthog Tactical Systems Maintenance">
+                    <img class="jet-thumbnail" src="F-16_June_2008.jpg" alt="USAF F-16 Fighting Falcon Mission Readiness">
+                </div>
+
+                <div class="slide-content">
+                    <h3>PROFESSIONAL EXPERIENCE 1: COMMON READ SYSTEM INTERACTION</h3>
+                    <p>The Common Read event featuring Marguerite Sheffer was a meaningful and engaging experience that gave me a deeper understanding of the creative writing process. Going into the event, I expected to simply listen to an author read her work, but it turned out to be much more interactive and insightful. One of the most interesting parts of the event was the Q&A session, where Sheffer explained how writers often discover the themes of their work after they finish writing, rather than planning everything out in advance. This surprised me because I had always thought that authors intentionally build themes into their stories from the beginning.</p>
+                    <p>During the event, Sheffer read her story “Midnight Revolt at Bertrand’s Year-Round Christmas Store.” Hearing the story read aloud made a big difference in how I understood it. The tone, pacing, and emphasis she used helped bring the story to life and made its meaning feel clearer. As I listened, I interpreted the story as being about identity and learning to accept who you are. The way the characters reacted to their situation made it seem like they were struggling with understanding themselves, which made the story more relatable and meaningful.</p>
+                    <p>After the reading, I had the opportunity to meet Sheffer in person, take a picture with her, and ask her a question about another story, “Reentry.” I asked why she chose to use clay as an analogy, since it was different from what I expected. She explained that clay represents fragility while still being able to hold its shape. I shared my own interpretation, suggesting that the clay symbolizes how people can be shaped or changed after experiencing trauma, like what the main character goes through. Sheffer told me that she liked my interpretation even better than her own, which made the experience feel more personal and memorable.</p>
+                    <p>This experience helped me better understand that literature can have multiple meanings, and that readers play an important role in interpreting a text. It also showed me that writing is not always a straightforward process, and that even authors continue to learn from their own work. Overall, the Common Read event was a valuable experience that gave me new insight into both writing and interpretation.</p>
+
+                    <h3>PROFESSIONAL EXPERIENCE 2: LOS ANGELES COUNTY MUSEUM OF ART</h3>
+                    <p>For my second professional experience, I explored the virtual exhibits of the Los Angeles County Museum of Art through Google Arts & Culture. This experience allowed me to view a wide range of artwork from different cultures and time periods without being physically present in the museum. Even though it was a virtual experience, it still provided a meaningful way to engage in art and better understand its significance.</p>
+                    <p>The museum is known for having one of the largest and most diverse collections in the western United States, featuring art from across the world and throughout history. As I explored the collection, I noticed how different cultures expressed ideas through art in unique ways. Some pieces focused on religion and tradition, while others explored modern identity and social issues. This variety made the experience more interesting because it showed how art can reflect different perspectives depending on the time and place it was created.</p>
+                    <p>One of the most impactful parts of the virtual experience was how detailed the images were. I was able to zoom in on specific artworks and notice small details that I might not have paid attention to otherwise. This made me realize how much effort artists put into their work, from texture and color to fine details that are not always visible at first glance. The ability to explore at my own pace also made the experience more personal, allowing me to spend more time on pieces that stood out to me.</p>
+                    <p>In addition to the artwork itself, the virtual museum also provided background information about artists and exhibits. This helped me better understand the meaning behind the pieces and the context in which they were created. I learned that museums are not just places to display art, but also spaces that help educate people and preserve history. The online format made this information easy to access and added to the overall experience.</p>
+                    <p>Although the virtual museum was engaging, it also made me realize the difference between viewing art online and experiencing it in person. Being physically present in a museum likely creates a stronger emotional connection, especially when seeing large-scale works or installations. However, the virtual experience still serves as a valuable alternative, making art more accessible to people who may not have the opportunity to visit in person.</p>
+                    <p>Overall, exploring the Los Angeles County Museum of Art online was a valuable professional experience. It helped me better understand how art reflects culture, history, and identity while also showing the importance of accessibility in modern museums. Even though it was a virtual visit, it still provided a meaningful and educational experience.</p>
+
+                    <h3>PROFESSIONAL EXPERIENCE 3: PALACE MUSEUM</h3>
+                    <p>For my third professional experience, I explored the virtual exhibits of the Palace Museum through Google Arts & Culture. This museum is located in the Forbidden City, which was once the home of Chinese emperors for hundreds of years. Exploring it virtually allowed me to experience a major part of Chinese history and culture in a way that felt both educational and immersive.</p>
+                    <p>One of the most interesting aspects of this experience was learning about the history of the Forbidden City itself. The palace served as the home for emperors from the Ming and Qing dynasties for nearly 500 years, showing how important it was to China’s political and cultural history. The virtual exhibits allowed me to explore important areas such as the Hall of Supreme Harmony, where emperors would hold ceremonies and make major decisions. Seeing these spaces made me realize how architecture can represent power, structure, and tradition.</p>
+                    <p>Another important part of the experience was viewing the different types of artwork and artifacts in the museum’s collection. The Palace Museum holds many historical objects, including calligraphy, paintings, jade, ceramics, and silk works, all of which reflect thousands of years of Chinese culture. These pieces showed how art was not only used for decoration but also to represent status, beliefs, and identity. The details in many of the works, especially in the calligraphy and carvings, showed the level of skill and dedication that went into creating them.</p>
+                    <p>The virtual format also made it possible to explore the museum in a more interactive way. I was able to move through different parts of the palace and view exhibits in 360 degrees, which made the experience feel more realistic. This helped me better understand the layout of the Forbidden City and how each section had a specific purpose. It also made me think about how technology can make historical sites more accessible to people around the world.</p>
+                    <p>At the same time, the experience showed me the difference between virtual and in-person visits. While the online tour was detailed and informative, I think being physically present would make the experience more powerful, especially because of the scale and detail of the buildings. However, the virtual version still provides a valuable opportunity to learn about history and culture for people who may not be able to travel.</p>
+                    <p>Overall, exploring the Palace Museum was a meaningful experience that helped me better understand Chinese history, art, and architecture. It showed how museums preserve important cultural knowledge and make it accessible to a wider audience. Even though it was a virtual visit, it still provided a strong educational experience and gave me a new appreciation for the historical site.</p>
+                </div>
+                <div class="slide-footer">
+                    <span>INTERFACE: GOOGLE ARTS & CULTURE // CANVA OPERATIONAL METRICS</span>
+                    <span>SLIDE 06 // 08</span>
+                </div>
+            </div>
+
+            <div id="slide-14-17" class="slide">
+                <div class="slide-tag">TACTICAL REENTRY: SUCCESS</div>
+                <div class="slide-title">COMMON READ ARCHIVES & MIDTERM FICTION ADAPTATION (UNABRIDGED VERBATIM DETONATION)</div>
+                
+                <div class="tactical-display">
+                    <img class="jet-thumbnail" src="F-15C_Eagle_from_the_44th_Fighter_Squadron_flies_during_a_routine_training_exercise_April_15,_2019.jpg" alt="USAF F-15C Eagle Air Superiority Jet Fighter Asset">
+                </div>
+
+                <div class="slide-content">
+                    <h3>COMMON READ REVIEW 1: HOW STRUGGLES CAN SHAPE A PERSON</h3>
+                    <p>What is it that makes you who you are, is it your values or your status? Maguerite Sheffer argues that your challenges are what builds you. Sheffer tries to show this using the short story “Reentry.” Throughout, Sheffer uses analogies to connect people and challenges to clay pots being fired. One of these analogies is, “‘but you cannot. You try, try your best, to be sure a pot is sound, but eventually you’ve got to fire it. An unfired pot is not a pot at all’” (Sheffer 45). Pottery being fired is like people going through challenges. You can try as hard as you want to prepare for it, but ultimately you don’t truly know the outcome until it happens.</p>
+                    <p>Sheffer’s connection is further strengthened through the characters. The main character Frankie is a teen who has faced challenges in her life. As a result of these challenges, Frankie has become easily moldable like clay. Her pottery teacher is a man named Gary. Through his words of encouragement and advice Gary molds Frankie, “Soon, Frankie began to feel Greg’s influence in other parts of her life, where he was not” (Sheffer 46). Grant has become the potter while Frankie is the clay.</p>
+                    <p>By the end of the story, Frankie has been fully molded by Gary and her challenges. Now when Frankie is faced with a challenge, Frankie instead faces it head on. When Frankie’s crew is forced into making a tough decision, Frankie is the one who decides they should take a lander. Frankie has finally realized what her fear was and is able to overcome it, “Frankie signaled to the commander that she had something to say. ‘It’s natural to be afraid,’ she began” (Sheffer 47).</p>
+
+                    <h3>COMMON READ REVIEW 2: WHAT REMAINS OF THE SHIP</h3>
+                    <p>In “The Disgrace of the Commodore” from The Man in the Banana Trees, Margeurite Sheffer contrasts the Commodore’s belief in strict preservation with the way later generations transform what he leaves behind. Through the image of a ship and the wood taken from it, Sheffer suggests that the past does not survive by remaining unchanged. Instead, it continues through the ways people adapt and reshape it.</p>
+                    <p>The Commodore views preservation as the key to maintaining legacy. He believes objects must remain protected so they can be passed down through generations. This belief appears when he explains, “‘If we are to have anything to pass down, it must be carefully preserved’” (Sheffer 122). The statement reveals his rigid understanding of tradition and memory. In his mind, the value of the past depends on keeping it intact. This belief reflects his connection to authority and control. However, it also shows his inability to accept that later generations might understand the past in a different way.</p>
+                    <p>The destruction of the ship challenges this belief and introduces a different interpretation of legacy. When the Commodore hears the vessel breaking apart, the moment symbolizes the collapse of the legacy he tried to protect. The Commodore describes how “He hears wood splintering. His descendants are hacking the ship to pieces” (Sheffer 122). To the Commodore, this act represents disgrace and the loss of his legacy. However, the scene also reveals that legacy does not always survive through preservation.</p>
+                    <p>The wood of the ship becomes material that can serve new purposes. Instead of protecting the vessel as a monument to the past, the next generation turns it into something useful. The transformation shows that legacy is not fixed or permanent. What one generation tries to preserve may be reshaped by the next. Through the symbolism of the ship and its wood, Sheffer suggests that the past continues through change rather than perfect preservation.</p>
+
+                    <h3>MIDTERM ADAPTIVE SHORT STORY: WHAT THE WOOD KEEPS</h3>
+                    <p>This is my short story “What the Wood Keeps,” I based it off my interpretation of Marguerite Sheffer’s short story “Reentry.” The wood symbolizes lasting change, with its cracks and marks representing what can’t be changed. It also represents people; they can be changed by the challenges they face but we aren’t broken by them. I directly took this from “Reentry” since I interpretated Sheffer’s use of clay as being to show how people are molded by their challenges. I also used an unreliable narrator to show how memory can be unclear, yet the effect can remain.</p>
+                    <p>The wood was already stacked when I got there. I do not remember cutting it, but that doesn’t mean I did not. The pieces were uneven, some split clean and others torn apart like they had resisted. They sat in a pile behind the house, close enough to the tree line that the shadows reached them first.</p>
+                    <p>I told myself I must have done it the week before. That seemed reasonable. I picked up one of the pieces and turned it over in my hands. The grain curved in strange directions, lines blending where they should run straight. There were marks along the surface, shallow at first, then deeper toward the center. Not cuts exactly. More like pressure that had stayed. I set it back down. It felt wrong to move it too much.</p>
+                    <p>The real estate agent said the old house used to belong to someone who worked with boats. I do not know if that was true, maybe they just liked the wood. In the morning, something is always slightly off. A piece turned the wrong way. Another closer to the door than I remember. Not enough to prove anything. Just enough to feel like I missed something important. I stopped trying to keep track. It felt useless.</p>
+                    <p>The long piece by the window has a crack running through it now. I do not remember seeing it before. It follows the grain, splitting it without breaking it apart. When I press against it, the wood holds. It does not give in completely. It just shifts enough to remind me that it could. I think that is what bothers me most. Not that it might break, but that it hasn’t. I sit with it sometimes, watching the light move across the surface. The lines catch differently depending on the angle, revealing marks I had not noticed before. Some shallow. Others are deep enough that they must have taken time to form. I try to remember making them. I can’t but they’re there. That must mean something.</p>
+                    <p>The neighbors always say wood like this always comes from somewhere else. That it carries the shape of what it used to be, even after it has been cut down and split apart. I do not know if I believe them, but when I look at the pieces scattered through the house, I see the pattern repeating. The same bends. The sane fractures. The same places where something pressed too hard and left its mark. I run my hand along the crack again. It has not spread. Not yet at least. The wood is still holding together. So am I. As far as I can tell.</p>
+                </div>
+                <div class="slide-footer">
+                    <span>METAPHOR: STRUCTURAL RESILIENCE // TEXT INTERACTIVE SPECIFICATION</span>
+                    <span>SLIDE 07 // 08</span>
+                </div>
+            </div>
+
+            <div id="slide-18-20" class="slide">
+                <div class="slide-tag">UPLINK: MEMORY EXTRACTION</div>
+                <div class="slide-title">MY FAVORITE STORY: MEMORY MARKET (UNABRIDGED)</div>
+                <div class="slide-content">
+                    <p>The first memory I sold was small enough that I thought it wouldn’t matter. It was the smell of my grandmother’s kitchen, burnt sugar and cinnamon. The kind that sticks to your clothes long after you left. The kind that made you feel like you belonged somewhere.</p>
+                    <p>“Common sensory memory,” The clerk said, barely looking up. “Not rare, I can offer you 30 credits.”</p>
+                    <p>Thirty credits wasn’t much. But it was enough for lunch for a week, maybe two if I stretched it. “Deal,” I said. The process was quick. A thin wire rested against my temple, cool and almost gentle. For a moment, the memory played clearly in my mind. My grandmother laughing, the oven door creaking open, the warm rush of air. Then it flickered, and it was gone. Just like that.</p>
+                    <p>“You may experience minor disorientation,” the clerk added, already calling for the next person. “Next.”</p>
+                    <p>I stepped outside into the noise of the city. Cars, voices, screens glowing everywhere. Everything felt normal. Too normal. I told myself it didn’t matter. It was just a smell.</p>
+                    <p>The second memory was easier. A birthday party from when I was seven. I barely remembered it, just flashes of ballons and too-sweet cake. The clerk offered more this time</p>
+                    <p>“Fifty credits,” she said. “Childhood events are more valuable if they include emotional markers.”</p>
+                    <p>I hesitated. “Will I… notice if it’s gone?” She shrugged “Only if you’re looking for it.” That answer should have stopped me. It didn’t. The hum. The flicker. Gone. This time, I walked out feeling lighter. Not empty, just less crowded. Like clearing space in a room, you didn’t realize was messy. I bought better food that night, real food.</p>
+                    <p>Weeks passed, memory became currency. People lined up outside the market every morning: students, workers, even older people who looked like they had nothing to sell except the past itself. I started choosing more carefully. A conversation I couldn’t quite remember, a face from middle school, the sound of rain against my window on a specific night. Each time I tell myself, you’re not losing who you are, just trimming the edges. Then I met him.</p>
+                    <p>“You’ve been coming here a lot lately,” he said leaning against the wall outside the market.</p>
+                    <p>I didn’t recognize him. Not really but something about him felt familiar in a way I couldn’t explain. “Yeah,” I said, “so what?” He smiled but it didn’t reach his eyes.</p>
+                    <p>“You don't remember me, do you?”</p>
+                </div>
+                <div class="slide-footer">
+                    <span>STATUS: FRAGMENTED IDENTITY // MISSION COMPLETE ENG 1010 DE</span>
+                    <span>SLIDE 08 // 08</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="comms-panel">
+            <span class="audio-label">TACTICAL AUDIO MONITOR // ACTIVE:</span>
+            <audio controls id="portfolio-audio" src="Staind - So Far Away.mp3">
+                Your browser does not support the audio element. Ensure 'Staind - So Far Away.mp3' is placed in the same folder.
+            </audio>
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-align: right; margin-left: auto;">
+                SYS_CLOCK: 2026 // LOGGED IN AS: STEWART_Z
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showSlide(slideId) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            const targetSlide = document.getElementById(slideId);
+            if (targetSlide) {
+                targetSlide.classList.add('active');
+                targetSlide.scrollTop = 0; // Reset scroll view
+            }
+            
+            const event = window.event;
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            } else {
+                const initialBtn = document.querySelector(`[onclick="showSlide('${slideId}')"]`);
+                if (initialBtn) initialBtn.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
