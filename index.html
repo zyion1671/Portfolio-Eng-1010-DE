@@ -72,7 +72,7 @@
 
         /* Sidebar Navigation */
         .sidebar {
-            width: 320px;
+            width: 340px;
             background-color: var(--panel-bg);
             border-right: 1px solid var(--border-color);
             display: flex;
@@ -86,6 +86,9 @@
             font-weight: bold;
             border-bottom: 1px solid var(--border-color);
             color: var(--accent-blue);
+            position: sticky;
+            top: 0;
+            z-index: 5;
         }
 
         .nav-btn {
@@ -293,11 +296,11 @@
             </button>
             <button class="nav-btn" onclick="showSlide('slide-04')">
                 <span class="phase-num">PHASE 04</span>
-                <span>Diagnostic Essay: The Foundation</span>
+                <span>Diagnostic Essay: Family Daycare</span>
             </button>
             <button class="nav-btn" onclick="showSlide('slide-06')">
                 <span class="phase-num">PHASE 06</span>
-                <span>Literary Analysis: "The Last Question"</span>
+                <span>Literary Analysis: Asimov's Entropy</span>
             </button>
             <button class="nav-btn" onclick="showSlide('slide-08')">
                 <span class="phase-num">PHASE 08</span>
@@ -307,17 +310,33 @@
                 <span class="phase-num">PHASE 10</span>
                 <span>Final Exam Essay: Control & Identity</span>
             </button>
-            <button class="nav-btn" onclick="showSlide('slide-11-13')">
-                <span class="phase-num">PHASE 11-13</span>
-                <span>Professional Experience Logs 1-3</span>
+            <button class="nav-btn" onclick="showSlide('slide-exp1')">
+                <span class="phase-num">PHASE 11</span>
+                <span>Prof. Experience 1: Common Read</span>
             </button>
-            <button class="nav-btn" onclick="showSlide('slide-14-17')">
-                <span class="phase-num">PHASE 14-17</span>
-                <span>Common Read & Final Project</span>
+            <button class="nav-btn" onclick="showSlide('slide-exp2')">
+                <span class="phase-num">PHASE 12</span>
+                <span>Prof. Experience 2: LACMA Virtual</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-exp3')">
+                <span class="phase-num">PHASE 13</span>
+                <span>Prof. Experience 3: Palace Museum</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-rev1')">
+                <span class="phase-num">PHASE 14</span>
+                <span>Common Read Review 1: Reentry</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-rev2')">
+                <span class="phase-num">PHASE 15</span>
+                <span>Common Read Review 2: Ship Legacy</span>
+            </button>
+            <button class="nav-btn" onclick="showSlide('slide-fiction')">
+                <span class="phase-num">PHASE 16-17</span>
+                <span>Midterm Adaptation: What Wood Keeps</span>
             </button>
             <button class="nav-btn" onclick="showSlide('slide-18-20')">
                 <span class="phase-num">PHASE 18-20</span>
-                <span>My Favorite Story: Memory Market</span>
+                <span>Favorite Story: Memory Market</span>
             </button>
         </div>
 
@@ -341,7 +360,7 @@
                 </div>
                 <div class="slide-footer">
                     <span>SECTOR: MAIN_DEBRIEF</span>
-                    <span>SLIDE 01 // 08</span>
+                    <span>SLIDE 01 // 12</span>
                 </div>
             </div>
 
@@ -355,7 +374,7 @@
                 </div>
                 <div class="slide-footer">
                     <span>MAINTENANCE: FAMILY TRADITION</span>
-                    <span>SLIDE 02 // 08</span>
+                    <span>SLIDE 02 // 12</span>
                 </div>
             </div>
 
@@ -369,13 +388,13 @@
                 </div>
                 <div class="slide-footer">
                     <span>VECTOR: GENESIS PROTOCOL</span>
-                    <span>SLIDE 03 // 08</span>
+                    <span>SLIDE 03 // 12</span>
                 </div>
             </div>
 
             <div id="slide-08" class="slide">
                 <div class="slide-tag">TARGET: BAY CITY GRID</div>
-                <div class="slide-title">MOVIE REVIEW: ALTERED CARBON (EXACT SOURCE MANIFEST)</div>
+                <div class="slide-title">MOVIE REVIEW: ALTERED CARBON</div>
                 
                 <div class="tactical-display">
                     <img class="jet-thumbnail" src="AC-130_Training.jpg" alt="USAF AC-130 Gunship Tactical Field Support Asset">
@@ -398,48 +417,71 @@
                 </div>
                 <div class="slide-footer">
                     <span>PHASE: 08</span>
-                    <span>SLIDE 04 // 08</span>
+                    <span>SLIDE 04 // 12</span>
                 </div>
             </div>
 
             <div id="slide-10" class="slide">
                 <div class="slide-tag">TACTICAL EVALUATION // MATRIX</div>
-                <div class="slide-title">FINAL EXAM ESSAY: CONTROL & IDENTITY</div>
+                <div class="slide-title">FINAL EXAM ESSAY: HOW CONTROL SHAPES IDENTITY</div>
                 <div class="slide-content">
-                    <p>In both "En plein air" and "The Unicorn in Captivity", identity is shaped and limited by outside factors, even when you appear free on the surface. While "En plein air" focuses on artistic perception and the pressure to perform, "The Unicorn in Captivity" presents a literal version of confinement. Together, these texts show how identity can be shaped by both subtle and obvious outside factors.</p>
-                    <p>In "The Unicorn in Captivity," control is physical and obvious. The unicorn, a symbol of purity and freedom is restrained, "Sure there's an arrow; sure there's a chain around its neck and a paltry fence. But it lives." This description shows even though the unicorn lives, it isn't truly free. This contradicts the identity of the unicorn as a mythological creature that is free and powerful, it's instead something that is subdued and trapped by its chains. A child questions this control, "Why doesn't the unicorn just break free?" The question suggests that escape should be possible, yet it doesn't happen, reflecting how control can be seen as permanent.</p>
+                    <p>In both “En plein air” and “The Unicorn in Captivity”, identity is shaped and limited by outside factors, even when you appear free on the surface. While “En plein air” focuses on artistic perception and the pressure to perform, “The Unicorn in Captivity” presents a literal version of confinement. Together, these texts show how identity can be shaped by both subtle and obvious outside factors.</p>
+                    <p>In, “The Unicorn in Captivity,” control is physical and obvious. The unicorn, a symbol of purity and freedom is restrained, “Sure there’s an arrow; sure there’s a chain around its neck and a paltry fence. But it lives” (Sheffer 10). This description shows even though the unicorn lives, it isn’t truly free. This contradicts the identity of the unicorn as a mythological creature that is free and powerful, it’s instead something that is subdued and trapped by its chains. A child questions this control, “Why doesn’t the unicorn just break free?” (Sheffer 11). The question suggests that escape should be possible, yet it doesn’t happen, reflecting how control can be seen as permanent. Over time, people begin to stop resisting control and accept the limits placed upon them. As a result, identity is no longer shaped by who they are but by the limits placed upon them by other people.</p>
+                    <p>Similarly, “En plein air” explores control, but in a more subtle and psychological way. Instead of physical confinement, it focuses on the pressure of presenting yourself in a certain way. One thing the ghost says is, “The art of being en plein air is to forget the self and to be a spout for everything surrounding you” (Sheffer 53). This suggests that identity can be shaped by your external surroundings rather than any inner truth. By forgetting themselves, individuals lose their sense of authenticity and instead reflect on what other people want them to see. The critique, “Artifice over art, again,” suggests that people focus more on performing than letting their actual identity show (Sheffer 53). This is reflected by the ghost; death is the external factor affecting her and she begins to do things we would think of a stereotypical ghost. Rather than be genuine, she constructs her identity based on appearance and perception.</p>
+                    <p>Although the forms of control are different, both stories show how identities can be directly shaped by outside factors. In “The Unicorn in Captivity,” this control is obvious and physical since the unicorn is chained and fenced in by a cage. While “En plein air” shows control in a much less obvious way but equally powerful. In both cases, the individual or symbol loses a sense of true self. The unicorn is no longer free and powerful while the ghost is no longer able to be anything other than a stereotypical ghost. These works demonstrate that freedom isn’t always what it seems. Whether through confinement or performance, identity can be shaped by factors outside of one’s control.</p>
                 </div>
                 <div class="slide-footer">
-                    <span>PHASE: 10</span>
-                    <span>SLIDE 05 // 08</span>
+                    <span>PILOT: STEWART_Z // EVALUATOR: MR. WARSHAUER</span>
+                    <span>SLIDE 05 // 12</span>
                 </div>
             </div>
 
-            <div id="slide-11-13" class="slide">
-                <div class="slide-tag">UAV SURVEILLANCE: ART SECTOR</div>
-                <div class="slide-title">PROFESSIONAL EXPERIENCE LOGS 1, 2 & 3 (UNABRIDGED OPERATIONAL RECOVERY)</div>
+            <div id="slide-exp1" class="slide">
+                <div class="slide-tag">UAV DATA // REGION 1</div>
+                <div class="slide-title">PROFESSIONAL EXPERIENCE 1: COMMON READ DEBRIEF</div>
                 
                 <div class="tactical-display">
                     <img class="jet-thumbnail" src="A-10_Warthog_nose_maintenance.jpg" alt="USAF A-10 Warthog Tactical Systems Maintenance">
-                    <img class="jet-thumbnail" src="F-16_June_2008.jpg" alt="USAF F-16 Fighting Falcon Mission Readiness">
                 </div>
 
                 <div class="slide-content">
-                    <h3>PROFESSIONAL EXPERIENCE 1: COMMON READ SYSTEM INTERACTION</h3>
                     <p>The Common Read event featuring Marguerite Sheffer was a meaningful and engaging experience that gave me a deeper understanding of the creative writing process. Going into the event, I expected to simply listen to an author read her work, but it turned out to be much more interactive and insightful. One of the most interesting parts of the event was the Q&A session, where Sheffer explained how writers often discover the themes of their work after they finish writing, rather than planning everything out in advance. This surprised me because I had always thought that authors intentionally build themes into their stories from the beginning.</p>
                     <p>During the event, Sheffer read her story “Midnight Revolt at Bertrand’s Year-Round Christmas Store.” Hearing the story read aloud made a big difference in how I understood it. The tone, pacing, and emphasis she used helped bring the story to life and made its meaning feel clearer. As I listened, I interpreted the story as being about identity and learning to accept who you are. The way the characters reacted to their situation made it seem like they were struggling with understanding themselves, which made the story more relatable and meaningful.</p>
                     <p>After the reading, I had the opportunity to meet Sheffer in person, take a picture with her, and ask her a question about another story, “Reentry.” I asked why she chose to use clay as an analogy, since it was different from what I expected. She explained that clay represents fragility while still being able to hold its shape. I shared my own interpretation, suggesting that the clay symbolizes how people can be shaped or changed after experiencing trauma, like what the main character goes through. Sheffer told me that she liked my interpretation even better than her own, which made the experience feel more personal and memorable.</p>
                     <p>This experience helped me better understand that literature can have multiple meanings, and that readers play an important role in interpreting a text. It also showed me that writing is not always a straightforward process, and that even authors continue to learn from their own work. Overall, the Common Read event was a valuable experience that gave me new insight into both writing and interpretation.</p>
+                </div>
+                <div class="slide-footer">
+                    <span>INTERFACE: EVENT DISPATCH 01</span>
+                    <span>SLIDE 06 // 12</span>
+                </div>
+            </div>
 
-                    <h3>PROFESSIONAL EXPERIENCE 2: LOS ANGELES COUNTY MUSEUM OF ART</h3>
+            <div id="slide-exp2" class="slide">
+                <div class="slide-tag">UAV DATA // REGION 2</div>
+                <div class="slide-title">PROFESSIONAL EXPERIENCE 2: LOS ANGELES COUNTY MUSEUM OF ART</div>
+                
+                <div class="tactical-display">
+                    <img class="jet-thumbnail" src="F-16_June_2008.jpg" alt="USAF F-16 Fighting Falcon Mission Readiness">
+                </div>
+
+                <div class="slide-content">
                     <p>For my second professional experience, I explored the virtual exhibits of the Los Angeles County Museum of Art through Google Arts & Culture. This experience allowed me to view a wide range of artwork from different cultures and time periods without being physically present in the museum. Even though it was a virtual experience, it still provided a meaningful way to engage in art and better understand its significance.</p>
                     <p>The museum is known for having one of the largest and most diverse collections in the western United States, featuring art from across the world and throughout history. As I explored the collection, I noticed how different cultures expressed ideas through art in unique ways. Some pieces focused on religion and tradition, while others explored modern identity and social issues. This variety made the experience more interesting because it showed how art can reflect different perspectives depending on the time and place it was created.</p>
                     <p>One of the most impactful parts of the virtual experience was how detailed the images were. I was able to zoom in on specific artworks and notice small details that I might not have paid attention to otherwise. This made me realize how much effort artists put into their work, from texture and color to fine details that are not always visible at first glance. The ability to explore at my own pace also made the experience more personal, allowing me to spend more time on pieces that stood out to me.</p>
                     <p>In addition to the artwork itself, the virtual museum also provided background information about artists and exhibits. This helped me better understand the meaning behind the pieces and the context in which they were created. I learned that museums are not just places to display art, but also spaces that help educate people and preserve history. The online format made this information easy to access and added to the overall experience.</p>
                     <p>Although the virtual museum was engaging, it also made me realize the difference between viewing art online and experiencing it in person. Being physically present in a museum likely creates a stronger emotional connection, especially when seeing large-scale works or installations. However, the virtual experience still serves as a valuable alternative, making art more accessible to people who may not have the opportunity to visit in person.</p>
                     <p>Overall, exploring the Los Angeles County Museum of Art online was a valuable professional experience. It helped me better understand how art reflects culture, history, and identity while also showing the importance of accessibility in modern museums. Even though it was a virtual visit, it still provided a meaningful and educational experience.</p>
+                </div>
+                <div class="slide-footer">
+                    <span>INTERFACE: GOOGLE ARTS & CULTURE // REGION_WEST</span>
+                    <span>SLIDE 07 // 12</span>
+                </div>
+            </div>
 
-                    <h3>PROFESSIONAL EXPERIENCE 3: PALACE MUSEUM</h3>
+            <div id="slide-exp3" class="slide">
+                <div class="slide-tag">UAV DATA // REGION 3</div>
+                <div class="slide-title">PROFESSIONAL EXPERIENCE 3: THE PALACE MUSEUM</div>
+                <div class="slide-content">
                     <p>For my third professional experience, I explored the virtual exhibits of the Palace Museum through Google Arts & Culture. This museum is located in the Forbidden City, which was once the home of Chinese emperors for hundreds of years. Exploring it virtually allowed me to experience a major part of Chinese history and culture in a way that felt both educational and immersive.</p>
                     <p>One of the most interesting aspects of this experience was learning about the history of the Forbidden City itself. The palace served as the home for emperors from the Ming and Qing dynasties for nearly 500 years, showing how important it was to China’s political and cultural history. The virtual exhibits allowed me to explore important areas such as the Hall of Supreme Harmony, where emperors would hold ceremonies and make major decisions. Seeing these spaces made me realize how architecture can represent power, structure, and tradition.</p>
                     <p>Another important part of the experience was viewing the different types of artwork and artifacts in the museum’s collection. The Palace Museum holds many historical objects, including calligraphy, paintings, jade, ceramics, and silk works, all of which reflect thousands of years of Chinese culture. These pieces showed how art was not only used for decoration but also to represent status, beliefs, and identity. The details in many of the works, especially in the calligraphy and carvings, showed the level of skill and dedication that went into creating them.</p>
@@ -448,32 +490,49 @@
                     <p>Overall, exploring the Palace Museum was a meaningful experience that helped me better understand Chinese history, art, and architecture. It showed how museums preserve important cultural knowledge and make it accessible to a wider audience. Even though it was a virtual visit, it still provided a strong educational experience and gave me a new appreciation for the historical site.</p>
                 </div>
                 <div class="slide-footer">
-                    <span>INTERFACE: GOOGLE ARTS & CULTURE // CANVA OPERATIONAL METRICS</span>
-                    <span>SLIDE 06 // 08</span>
+                    <span>INTERFACE: GOOGLE ARTS & CULTURE // EAST_MANIFEST</span>
+                    <span>SLIDE 08 // 12</span>
                 </div>
             </div>
 
-            <div id="slide-14-17" class="slide">
-                <div class="slide-tag">TACTICAL REENTRY: SUCCESS</div>
-                <div class="slide-title">COMMON READ ARCHIVES & MIDTERM FICTION ADAPTATION (UNABRIDGED VERBATIM DETONATION)</div>
+            <div id="slide-rev1" class="slide">
+                <div class="slide-tag">CRITIQUE CORE // DOSSIER Alpha</div>
+                <div class="slide-title">COMMON READ REVIEW 1: HOW STRUGGLES CAN SHAPE A PERSON</div>
+                <div class="slide-content">
+                    <p>What is it that makes you who you are, is it your values or your status? Maguerite Sheffer argues that your challenges are what builds you. Sheffer tries to show this using the short story “Reentry.” Throughout, Sheffer uses analogies to connect people and challenges to clay pots being fired. One of these analogies is, “‘but you cannot. You try, try your best, to be sure a pot is sound, but eventually you’ve got to fire it. An unfired pot is not a pot at all’ Check” (Sheffer 45). Pottery being fired is like people going through challenges. You can try as hard as you want to prepare for it, but ultimately you don’t truly know the outcome until it happens.</p>
+                    <p>Sheffer’s connection is further strengthened through the characters. The main character Frankie is a teen who has faced challenges in her life. As a result of these challenges, Frankie has become easily moldable like clay. Her pottery teacher is a man named Gary. Through his words of encouragement and advice Gary molds Frankie, “Soon, Frankie began to feel Greg’s influence in other parts of her life, where he was not” (Sheffer 46). Grant has become the potter while Frankie is the clay.</p>
+                    <p>By the end of the story, Frankie has been fully molded by Gary and her challenges. Now when Frankie is faced with a challenge, Frankie instead faces it head on. When Frankie’s crew is forced into making a tough decision, Frankie is the one who decides they should take a lander. Frankie has finally realized what her fear was and is able to overcome it, “Frankie signaled to the commander that she had something to say. ‘It’s natural to be afraid,’ she began” (Sheffer 47).</p>
+                </div>
+                <div class="slide-footer">
+                    <span>ANALOGY METRIC: CLAY MATRIX</span>
+                    <span>SLIDE 09 // 12</span>
+                </div>
+            </div>
+
+            <div id="slide-rev2" class="slide">
+                <div class="slide-tag">CRITIQUE CORE // DOSSIER Beta</div>
+                <div class="slide-title">COMMON READ REVIEW 2: WHAT REMAINS OF THE SHIP</div>
+                <div class="slide-content">
+                    <p>In “The Disgrace of the Commodore” from The Man in the Banana Trees, Margeurite Sheffer contrasts the Commodore’s belief in strict preservation with the way later generations transform what he leaves behind. Through the image of a ship and the wood taken from it, Sheffer suggests that the past does not survive by remaining unchanged. Instead, it continues through the ways people adapt and reshape it.</p>
+                    <p>The Commodore views preservation as the key to maintaining legacy. He believes objects must remain protected so they can be passed down through generations. This belief appears when he explains, “‘If we are to have anything to pass down, it must be carefully preserved’” (Sheffer 122). The statement reveals his rigid understanding of tradition and memory. In his mind, the value of the past depends on keeping it intact. This belief reflects his connection to authority and control. However, it also shows his inability to accept that later generations might understand the past in a different way.</p>
+                    <p>The destruction of the ship challenges this belief and introduces a different interpretation of legacy. When the Commodore hears the vessel breaking apart, the moment symbolizes the collapse of the legacy he tried to protect. The Commodore describes how “He hears wood splintering. His descendants are hacking the ship to pieces” (Sheffer 122). To the Commodore, this act represents disgrace and the loss of his legacy. However, the scene also reveals that legacy does not always survive through preservation.</p>
+                    <p>The wood of the ship becomes material that can serve new purposes. Instead of protecting the vessel as a monument to the past, the next generation turns it into something useful. The transformation shows that legacy is not fixed or permanent. What one generation tries to preserve may be reshaped by the next. Through the symbolism of the ship and its wood, Sheffer suggests that the past continues through change rather than perfect preservation.</p>
+                </div>
+                <div class="slide-footer">
+                    <span>ANALOGY METRIC: NAVAL DESTRUCTION RECON</span>
+                    <span>SLIDE 10 // 12</span>
+                </div>
+            </div>
+
+            <div id="slide-fiction" class="slide">
+                <div class="slide-tag">TACTICAL REENTRY: CREATIVE</div>
+                <div class="slide-title">MIDTERM FICTION ADAPTATION: WHAT THE WOOD KEEPS</div>
                 
                 <div class="tactical-display">
                     <img class="jet-thumbnail" src="F-15C_Eagle_from_the_44th_Fighter_Squadron_flies_during_a_routine_training_exercise_April_15,_2019.jpg" alt="USAF F-15C Eagle Air Superiority Jet Fighter Asset">
                 </div>
 
                 <div class="slide-content">
-                    <h3>COMMON READ REVIEW 1: HOW STRUGGLES CAN SHAPE A PERSON</h3>
-                    <p>What is it that makes you who you are, is it your values or your status? Maguerite Sheffer argues that your challenges are what builds you. Sheffer tries to show this using the short story “Reentry.” Throughout, Sheffer uses analogies to connect people and challenges to clay pots being fired. One of these analogies is, “‘but you cannot. You try, try your best, to be sure a pot is sound, but eventually you’ve got to fire it. An unfired pot is not a pot at all’” (Sheffer 45). Pottery being fired is like people going through challenges. You can try as hard as you want to prepare for it, but ultimately you don’t truly know the outcome until it happens.</p>
-                    <p>Sheffer’s connection is further strengthened through the characters. The main character Frankie is a teen who has faced challenges in her life. As a result of these challenges, Frankie has become easily moldable like clay. Her pottery teacher is a man named Gary. Through his words of encouragement and advice Gary molds Frankie, “Soon, Frankie began to feel Greg’s influence in other parts of her life, where he was not” (Sheffer 46). Grant has become the potter while Frankie is the clay.</p>
-                    <p>By the end of the story, Frankie has been fully molded by Gary and her challenges. Now when Frankie is faced with a challenge, Frankie instead faces it head on. When Frankie’s crew is forced into making a tough decision, Frankie is the one who decides they should take a lander. Frankie has finally realized what her fear was and is able to overcome it, “Frankie signaled to the commander that she had something to say. ‘It’s natural to be afraid,’ she began” (Sheffer 47).</p>
-
-                    <h3>COMMON READ REVIEW 2: WHAT REMAINS OF THE SHIP</h3>
-                    <p>In “The Disgrace of the Commodore” from The Man in the Banana Trees, Margeurite Sheffer contrasts the Commodore’s belief in strict preservation with the way later generations transform what he leaves behind. Through the image of a ship and the wood taken from it, Sheffer suggests that the past does not survive by remaining unchanged. Instead, it continues through the ways people adapt and reshape it.</p>
-                    <p>The Commodore views preservation as the key to maintaining legacy. He believes objects must remain protected so they can be passed down through generations. This belief appears when he explains, “‘If we are to have anything to pass down, it must be carefully preserved’” (Sheffer 122). The statement reveals his rigid understanding of tradition and memory. In his mind, the value of the past depends on keeping it intact. This belief reflects his connection to authority and control. However, it also shows his inability to accept that later generations might understand the past in a different way.</p>
-                    <p>The destruction of the ship challenges this belief and introduces a different interpretation of legacy. When the Commodore hears the vessel breaking apart, the moment symbolizes the collapse of the legacy he tried to protect. The Commodore describes how “He hears wood splintering. His descendants are hacking the ship to pieces” (Sheffer 122). To the Commodore, this act represents disgrace and the loss of his legacy. However, the scene also reveals that legacy does not always survive through preservation.</p>
-                    <p>The wood of the ship becomes material that can serve new purposes. Instead of protecting the vessel as a monument to the past, the next generation turns it into something useful. The transformation shows that legacy is not fixed or permanent. What one generation tries to preserve may be reshaped by the next. Through the symbolism of the ship and its wood, Sheffer suggests that the past continues through change rather than perfect preservation.</p>
-
-                    <h3>MIDTERM ADAPTIVE SHORT STORY: WHAT THE WOOD KEEPS</h3>
                     <p>This is my short story “What the Wood Keeps,” I based it off my interpretation of Marguerite Sheffer’s short story “Reentry.” The wood symbolizes lasting change, with its cracks and marks representing what can’t be changed. It also represents people; they can be changed by the challenges they face but we aren’t broken by them. I directly took this from “Reentry” since I interpretated Sheffer’s use of clay as being to show how people are molded by their challenges. I also used an unreliable narrator to show how memory can be unclear, yet the effect can remain.</p>
                     <p>The wood was already stacked when I got there. I do not remember cutting it, but that doesn’t mean I did not. The pieces were uneven, some split clean and others torn apart like they had resisted. They sat in a pile behind the house, close enough to the tree line that the shadows reached them first.</p>
                     <p>I told myself I must have done it the week before. That seemed reasonable. I picked up one of the pieces and turned it over in my hands. The grain curved in strange directions, lines blending where they should run straight. There were marks along the surface, shallow at first, then deeper toward the center. Not cuts exactly. More like pressure that had stayed. I set it back down. It felt wrong to move it too much.</p>
@@ -482,14 +541,14 @@
                     <p>The neighbors always say wood like this always comes from somewhere else. That it carries the shape of what it used to be, even after it has been cut down and split apart. I do not know if I believe them, but when I look at the pieces scattered through the house, I see the pattern repeating. The same bends. The sane fractures. The same places where something pressed too hard and left its mark. I run my hand along the crack again. It has not spread. Not yet at least. The wood is still holding together. So am I. As far as I can tell.</p>
                 </div>
                 <div class="slide-footer">
-                    <span>METAPHOR: STRUCTURAL RESILIENCE // TEXT INTERACTIVE SPECIFICATION</span>
-                    <span>SLIDE 07 // 08</span>
+                    <span>METAPHOR: STRUCTURAL RESILIENCE // UNRELIABLE FREQUENCY</span>
+                    <span>SLIDE 11 // 12</span>
                 </div>
             </div>
 
             <div id="slide-18-20" class="slide">
                 <div class="slide-tag">UPLINK: MEMORY EXTRACTION</div>
-                <div class="slide-title">MY FAVORITE STORY: MEMORY MARKET (UNABRIDGED)</div>
+                <div class="slide-title">MY FAVORITE STORY: MEMORY MARKET</div>
                 <div class="slide-content">
                     <p>The first memory I sold was small enough that I thought it wouldn’t matter. It was the smell of my grandmother’s kitchen, burnt sugar and cinnamon. The kind that sticks to your clothes long after you left. The kind that made you feel like you belonged somewhere.</p>
                     <p>“Common sensory memory,” The clerk said, barely looking up. “Not rare, I can offer you 30 credits.”</p>
@@ -506,7 +565,7 @@
                 </div>
                 <div class="slide-footer">
                     <span>STATUS: FRAGMENTED IDENTITY // MISSION COMPLETE ENG 1010 DE</span>
-                    <span>SLIDE 08 // 08</span>
+                    <span>SLIDE 12 // 12</span>
                 </div>
             </div>
 
@@ -536,7 +595,7 @@
             const targetSlide = document.getElementById(slideId);
             if (targetSlide) {
                 targetSlide.classList.add('active');
-                targetSlide.scrollTop = 0; // Reset scroll view
+                targetSlide.scrollTop = 0; 
             }
             
             const event = window.event;
